@@ -8,8 +8,8 @@ package Excepciones.VehiculoExceptions;
  *
  * @author Valdelomaar
  */
-public class PlacaInvalidaException extends Exception {
-    public PlacaInvalidaException(String message) {
-        super(message);
+public class PlacaInvalidaExcepcion extends Exception {
+    public PlacaInvalidaExcepcion() {
+        super();
     }
 }

@@ -8,8 +8,8 @@ package Excepciones.VehiculoExceptions;
  *
  * @author Valdelomaar
  */
-public class campoVacioException extends Exception {
-    public campoVacioException(String message) {
-        super(message);
+public class TransicionEstadoNoPermitidoExcepcion extends Exception {
+    public TransicionEstadoNoPermitidoExcepcion() {
+        super();
     }
 }

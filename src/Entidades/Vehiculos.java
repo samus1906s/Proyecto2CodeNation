@@ -5,11 +5,11 @@
 package Entidades;
 
 //SE USA SERIALIZABLE PARA GUARDAR LOS DATOS REALIZADOS EN EL PROGRAMA, Y SIMULAR UNA APLICACION WEB
-import Excepciones.VehiculoExceptions.AñoIncorrectoException;
-import Excepciones.VehiculoExceptions.TransicionEstadoNoPermitidoException;
-import Excepciones.VehiculoExceptions.EstadoInvalidoException;
-import Excepciones.VehiculoExceptions.campoVacioException;
-import Excepciones.VehiculoExceptions.PlacaInvalidaException;
+import Excepciones.VehiculoExceptions.AñoIncorrectoExcepcion;
+import Excepciones.VehiculoExceptions.TransicionEstadoNoPermitidoExcepcion;
+import Excepciones.VehiculoExceptions.EstadoInvalidoExcepcion;
+import Excepciones.VehiculoExceptions.CampoVacioExcepcion;
+import Excepciones.VehiculoExceptions.PlacaInvalidaExcepcion;
 
 import java.io.Serializable;
 import java.time.Year;
@@ -22,11 +22,11 @@ import java.util.regex.Pattern;
  */
 public class Vehiculos implements Serializable {
     //La siguiente regla es solo para esta identidad porque la clase implementa serializable, esto hace que java al cargar el programa verifique si sigue siendo compatible y no ha cambiado.
-     private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     //Esto crea un patrón de expresión regular para validar la placa.
     private static final Pattern PLACA_REGEX = Pattern.compile("^[A-Z0-9-]{5,10}$");
 
-   
+    
     private final String placa;                
     private String marca;
     private String modelo;                     
@@ -36,17 +36,15 @@ public class Vehiculos implements Serializable {
 
   
     public Vehiculos(String placa, String marca, String modelo, int anio,
-        TipoVehiculo tipo, EstadoVehiculos estadoInicial) throws PlacaInvalidaException, campoVacioException, AñoIncorrectoException, EstadoInvalidoException {
-
+         TipoVehiculo tipo, EstadoVehiculos estadoInicial) throws PlacaInvalidaExcepcion, CampoVacioExcepcion, AñoIncorrectoExcepcion, EstadoInvalidoExcepcion {
         this.placa  = validarPlaca(placa);
-        this.marca  = validarObligatorio("marca", marca);
-        this.modelo = validarObligatorio("modelo", modelo);
+        this.marca  = validarObligatorio(marca);
+        this.modelo = validarObligatorio(modelo);
         this.anio   = validarAnio(anio);
         this.tipo   = validarTipo(tipo);
         this.estado = (estadoInicial == null) ? EstadoVehiculos.DISPONIBLE : validarEstado(estadoInicial);
     }
 
-    //  Metodos GET
     public String getPlaca() { return placa; }
     public String getMarca() { return marca; }
     public String getModelo() { return modelo; }
@@ -54,101 +52,91 @@ public class Vehiculos implements Serializable {
     public TipoVehiculo getTipo() { return tipo; }
     public EstadoVehiculos getEstado() { return estado; }
 
-    // mETODOS SET
-    public void setModelo(String modelo) throws campoVacioException {
-        this.modelo = validarObligatorio("modelo", modelo);
+    public void setModelo(String modelo) throws CampoVacioExcepcion {
+        this.modelo = validarObligatorio(modelo);
     }
 
-    public void setTipo(TipoVehiculo tipo) throws campoVacioException {
+    public void setTipo(TipoVehiculo tipo) throws CampoVacioExcepcion {
         this.tipo = validarTipo(tipo);
     }
 
-    public void setEstado(EstadoVehiculos nuevoEstado) throws TransicionEstadoNoPermitidoException, EstadoInvalidoException {
+    public void setEstado(EstadoVehiculos nuevoEstado) throws TransicionEstadoNoPermitidoExcepcion, EstadoInvalidoExcepcion {
         EstadoVehiculos destino = validarEstado(nuevoEstado);
         if (!puedeCambiarAEstado(this.estado, destino)) {
-            throw new TransicionEstadoNoPermitidoException("Transición no permitida: " + this.estado + " → " + destino);
+            throw new TransicionEstadoNoPermitidoExcepcion();
         }
         this.estado = destino;
     }
-
    
     public boolean isDisponible() { return estado == EstadoVehiculos.DISPONIBLE; }
-
     
-    public void iniciarAlquiler() throws TransicionEstadoNoPermitidoException {
+    public void iniciarAlquiler() throws TransicionEstadoNoPermitidoExcepcion {
         if (estado != EstadoVehiculos.DISPONIBLE) {
-            throw new TransicionEstadoNoPermitidoException("El vehículo no está disponible para alquilar.");
+            throw new TransicionEstadoNoPermitidoExcepcion();
         }
         estado = EstadoVehiculos.EN_ALQUILER;
     }
-
     
-    public void finalizarAlquiler() throws TransicionEstadoNoPermitidoException {
+    public void finalizarAlquiler() throws TransicionEstadoNoPermitidoExcepcion {
         if (estado != EstadoVehiculos.EN_ALQUILER) {
-            throw new TransicionEstadoNoPermitidoException("Solo un vehículo en alquiler puede finalizarse.");
+            throw new TransicionEstadoNoPermitidoExcepcion();
         }
         estado = EstadoVehiculos.DISPONIBLE;
     }
-
   
-    public void enviarAMantenimiento() throws TransicionEstadoNoPermitidoException {
+    public void enviarAMantenimiento() throws TransicionEstadoNoPermitidoExcepcion {
         if (estado == EstadoVehiculos.EN_ALQUILER) {
-            throw new TransicionEstadoNoPermitidoException("No se puede enviar a mantenimiento mientras está en alquiler.");
+            throw new TransicionEstadoNoPermitidoExcepcion();
         }
         estado = EstadoVehiculos.EN_MANTENIMIENTO;
     }
-
    
-    public void salirDeMantenimiento() throws TransicionEstadoNoPermitidoException {
+    public void salirDeMantenimiento() throws TransicionEstadoNoPermitidoExcepcion {
         if (estado != EstadoVehiculos.EN_MANTENIMIENTO) {
-            throw new TransicionEstadoNoPermitidoException("El vehículo no está en mantenimiento.");
+            throw new TransicionEstadoNoPermitidoExcepcion();
         }
         estado = EstadoVehiculos.DISPONIBLE;
     }
-
    
-    private static String validarPlaca(String placa) throws PlacaInvalidaException, campoVacioException {
-        String p = validarObligatorio("placa", placa).toUpperCase().trim();
+    private static String validarPlaca(String placa) throws PlacaInvalidaExcepcion, CampoVacioExcepcion {
+        String p = validarObligatorio(placa).toUpperCase().trim();
         if (!PLACA_REGEX.matcher(p).matches()) {
-            throw new PlacaInvalidaException("Formato de placa inválido: " + p);
+            throw new PlacaInvalidaExcepcion();
         }
         return p;
     }
 
-    private static String validarObligatorio(String campo, String valor) throws campoVacioException {
+    private static String validarObligatorio(String valor) throws CampoVacioExcepcion {
         if (valor == null || valor.trim().isEmpty()) {
-            throw new campoVacioException("El campo " + campo + " es obligatorio.");
+            throw new CampoVacioExcepcion();
         }
         return valor.trim();
     }
 
-    private static int validarAnio(int anio) throws AñoIncorrectoException {
+    private static int validarAnio(int anio) throws AñoIncorrectoExcepcion {
         int actual = Year.now().getValue();
         if (anio > actual) {
-            throw new AñoIncorrectoException("El año no puede ser mayor al año actual.");
+            throw new AñoIncorrectoExcepcion();
         }
         if (actual - anio > 20) {
-            throw new AñoIncorrectoException("El vehículo no puede tener más de 20 años de antigüedad.");
+            throw new AñoIncorrectoExcepcion();
         }
         return anio;
     }
 
-    private static TipoVehiculo validarTipo(TipoVehiculo tipo) throws campoVacioException {
+    private static TipoVehiculo validarTipo(TipoVehiculo tipo) throws CampoVacioExcepcion {
         if (tipo == null) {
-            throw new campoVacioException("El tipo de vehículo es obligatorio.");
+            throw new CampoVacioExcepcion();
         }
-        
         return tipo;
     }
 
-    private static EstadoVehiculos validarEstado(EstadoVehiculos estado) throws EstadoInvalidoException {
+    private static EstadoVehiculos validarEstado(EstadoVehiculos estado) throws EstadoInvalidoExcepcion {
         if (estado == null) {
-            throw new EstadoInvalidoException("El estado no puede ser nulo.");
+            throw new EstadoInvalidoExcepcion();
         }
-       
         return estado;
     }
-
     
     private static boolean puedeCambiarAEstado(EstadoVehiculos actual, EstadoVehiculos destino) {
         if (actual == null || destino == null) return false;
@@ -163,7 +151,6 @@ public class Vehiculos implements Serializable {
                 return false;
         }
     }
-
     
     @Override
     public boolean equals(Object o) {
@@ -177,17 +164,4 @@ public class Vehiculos implements Serializable {
     public int hashCode() {
         return Objects.hash(placa);
     }
-
-    @Override
-    public String toString() {
-        return "Vehiculo{" +
-                "placa='" + placa + '\'' +
-                ", marca='" + marca + '\'' +
-                ", modelo='" + modelo + '\'' +
-                ", anio=" + anio +
-                ", tipo=" + tipo +
-                ", estado=" + estado +
-                '}';
-    }
-    
 }

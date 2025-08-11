@@ -7,9 +7,9 @@ import Validaciones.ValidarVehiculos;
 import Entidades.Vehiculos;
 import Entidades.EstadoVehiculos;
 import Entidades.TipoVehiculo;
-import Excepciones.VehiculoExceptions.EstadoInvalidoException;
-import Excepciones.VehiculoExceptions.TransicionEstadoNoPermitidoException;
-import Excepciones.VehiculoExceptions.campoVacioException;
+import Excepciones.VehiculoExceptions.EstadoInvalidoExcepcion;
+import Excepciones.VehiculoExceptions.TransicionEstadoNoPermitidoExcepcion;
+import Excepciones.VehiculoExceptions.CampoVacioExcepcion;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +18,7 @@ import java.util.Map;
 
 /**
  *
- * @author je110
+ * @author Brandon Valdelomar
  */
 public class VehiculosHashMap {
      // Repositorio en memoria
@@ -56,7 +56,7 @@ public class VehiculosHashMap {
     }
 
   
-    public boolean actualizarModelo(String placa, String nuevoModelo) throws campoVacioException {
+    public boolean actualizarModelo(String placa, String nuevoModelo) throws CampoVacioExcepcion {
         Vehiculos v = buscarPorPlaca(placa);
         if (v == null) return false;
         if (!ValidarVehiculos.puedeActualizarModelo(nuevoModelo)) return false;
@@ -64,7 +64,7 @@ public class VehiculosHashMap {
         return true;
     }
 
-    public boolean actualizarTipo(String placa, TipoVehiculo nuevoTipo) throws campoVacioException {
+    public boolean actualizarTipo(String placa, TipoVehiculo nuevoTipo) throws CampoVacioExcepcion {
         Vehiculos v = buscarPorPlaca(placa);
         if (v == null) return false;
         if (!ValidarVehiculos.puedeActualizarTipo(nuevoTipo)) return false;
@@ -72,7 +72,7 @@ public class VehiculosHashMap {
         return true;
     }
 
-    public boolean actualizarEstado(String placa, EstadoVehiculos nuevoEstado) throws TransicionEstadoNoPermitidoException, EstadoInvalidoException {
+    public boolean actualizarEstado(String placa, EstadoVehiculos nuevoEstado) throws TransicionEstadoNoPermitidoExcepcion, EstadoInvalidoExcepcion {
         Vehiculos v = buscarPorPlaca(placa);
         if (v == null) return false;
         if (!ValidarVehiculos.puedeActualizarEstado(v.getEstado(), nuevoEstado)) return false;

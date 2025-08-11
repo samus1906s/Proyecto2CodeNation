@@ -6,11 +6,11 @@ package Validaciones;
 import Entidades.EstadoVehiculos;
 import Entidades.TipoVehiculo;
 import Entidades.Vehiculos;
-import Excepciones.VehiculoExceptions.AñoIncorrectoException;
-import Excepciones.VehiculoExceptions.TransicionEstadoNoPermitidoException;
-import Excepciones.VehiculoExceptions.EstadoInvalidoException;
-import Excepciones.VehiculoExceptions.campoVacioException;
-import Excepciones.VehiculoExceptions.PlacaInvalidaException;
+import Excepciones.VehiculoExceptions.AñoIncorrectoExcepcion;
+import Excepciones.VehiculoExceptions.TransicionEstadoNoPermitidoExcepcion;
+import Excepciones.VehiculoExceptions.EstadoInvalidoExcepcion;
+import Excepciones.VehiculoExceptions.CampoVacioExcepcion;
+import Excepciones.VehiculoExceptions.PlacaInvalidaExcepcion;
 
 
 import java.time.Year;
@@ -18,11 +18,10 @@ import java.util.Map;
 import java.util.regex.Pattern;
 /**
  *
- * @author je110
+ * @author Brandon Valdelomar
  */
 public class ValidarVehiculos {
     private static final Pattern PLACA_REGEX = Pattern.compile("^[A-Z0-9-]{5,10}$");
-
     
     public static boolean placaValida(String placa) {
         if (placa == null) return false;
@@ -37,14 +36,12 @@ public class ValidarVehiculos {
     }
 
     public static boolean tipoValido(TipoVehiculo tipo) {
-        
         return tipo == TipoVehiculo.SEDAN ||
                tipo == TipoVehiculo.SUV   ||
                tipo == TipoVehiculo.PICK_UP;
     }
 
     public static boolean estadoValido(EstadoVehiculos estado) {
-       
         return estado == EstadoVehiculos.DISPONIBLE ||
                estado == EstadoVehiculos.EN_ALQUILER ||
                estado == EstadoVehiculos.EN_MANTENIMIENTO;
@@ -54,7 +51,6 @@ public class ValidarVehiculos {
         if (placa == null || repo == null) return false;
         return repo.containsKey(placa.trim().toUpperCase());
     }
-
    
     public static boolean puedeAgregar(Vehiculos v, Map<String, Vehiculos> repo) {
         if (v == null || repo == null) return false;
@@ -95,47 +91,45 @@ public class ValidarVehiculos {
     }
 
     public static boolean puedeEliminar(Vehiculos v) {
-        // No eliminar si está en alquiler
         return v != null && v.getEstado() != EstadoVehiculos.EN_ALQUILER;
     }
-
    
-    public static void assertPuedeAgregar(Vehiculos v, Map<String, Vehiculos> repo) throws PlacaInvalidaException, campoVacioException, AñoIncorrectoException, EstadoInvalidoException {
+    public static void assertPuedeAgregar(Vehiculos v, Map<String, Vehiculos> repo) 
+            throws PlacaInvalidaExcepcion, CampoVacioExcepcion, AñoIncorrectoExcepcion, EstadoInvalidoExcepcion {
         if (v == null || repo == null) {
-            throw new IllegalArgumentException("Vehículo o repositorio nulo.");
+            throw new IllegalArgumentException();
         }
         String placa = safeUpper(v.getPlaca());
-        if (!placaValida(placa)) throw new PlacaInvalidaException("Formato de placa inválido.");
-        if (placaDuplicada(placa, repo)) throw new PlacaInvalidaException("Placa duplicada: " + placa);
-        if (!notEmpty(v.getMarca())) throw new campoVacioException("La marca es obligatoria.");
-        if (!notEmpty(v.getModelo())) throw new campoVacioException("El modelo es obligatorio.");
-        if (!anioValido(v.getAnio())) throw new AñoIncorrectoException("Año inválido o antigüedad > 20.");
-        if (!tipoValido(v.getTipo())) throw new campoVacioException("Tipo de vehículo inválido.");
-        if (!estadoValido(v.getEstado())) throw new EstadoInvalidoException("Estado de vehículo inválido.");
+        if (!placaValida(placa)) throw new PlacaInvalidaExcepcion();
+        if (placaDuplicada(placa, repo)) throw new PlacaInvalidaExcepcion();
+        if (!notEmpty(v.getMarca())) throw new CampoVacioExcepcion();
+        if (!notEmpty(v.getModelo())) throw new CampoVacioExcepcion();
+        if (!anioValido(v.getAnio())) throw new AñoIncorrectoExcepcion();
+        if (!tipoValido(v.getTipo())) throw new CampoVacioExcepcion();
+        if (!estadoValido(v.getEstado())) throw new EstadoInvalidoExcepcion();
     }
 
-    public static void assertPuedeActualizarModelo(String nuevoModelo) throws campoVacioException {
-        if (!notEmpty(nuevoModelo)) throw new campoVacioException("El modelo es obligatorio.");
+    public static void assertPuedeActualizarModelo(String nuevoModelo) throws CampoVacioExcepcion {
+        if (!notEmpty(nuevoModelo)) throw new CampoVacioExcepcion();
     }
 
-    public static void assertPuedeActualizarTipo(TipoVehiculo nuevoTipo) throws campoVacioException {
-        if (!tipoValido(nuevoTipo)) throw new campoVacioException("Tipo de vehículo inválido.");
+    public static void assertPuedeActualizarTipo(TipoVehiculo nuevoTipo) throws CampoVacioExcepcion {
+        if (!tipoValido(nuevoTipo)) throw new CampoVacioExcepcion();
     }
 
     public static void assertPuedeActualizarEstado(EstadoVehiculos actual, EstadoVehiculos nuevo)
-        throws EstadoInvalidoException, TransicionEstadoNoPermitidoException {
-    if (!estadoValido(actual) || !estadoValido(nuevo)) {
-        throw new EstadoInvalidoException("Estado inválido.");
-    }
-    if (!puedeCambiarAEstado(actual, nuevo)) {
-        throw new TransicionEstadoNoPermitidoException("Transición de estado no permitida.");
-    }
-}
-
-    public static void assertPuedeEliminar(Vehiculos v) throws EstadoInvalidoException {
-        if (!puedeEliminar(v)) throw new EstadoInvalidoException("No se puede eliminar un vehículo en alquiler.");
+        throws EstadoInvalidoExcepcion, TransicionEstadoNoPermitidoExcepcion {
+        if (!estadoValido(actual) || !estadoValido(nuevo)) {
+            throw new EstadoInvalidoExcepcion();
+        }
+        if (!puedeCambiarAEstado(actual, nuevo)) {
+            throw new TransicionEstadoNoPermitidoExcepcion();
+        }
     }
 
+    public static void assertPuedeEliminar(Vehiculos v) throws EstadoInvalidoExcepcion {
+        if (!puedeEliminar(v)) throw new EstadoInvalidoExcepcion();
+    }
    
     private static boolean notEmpty(String s) {
         return s != null && !s.trim().isEmpty();

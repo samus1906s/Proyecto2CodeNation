@@ -8,8 +8,8 @@ package Excepciones.VehiculoExceptions;
  *
  * @author Valdelomaar
  */
-public class EstadoInvalidoException extends Exception {
-    public EstadoInvalidoException(String message) {
-        super(message);
+public class CampoVacioExcepcion extends Exception {
+    public CampoVacioExcepcion() {
+        super();
     }
 }

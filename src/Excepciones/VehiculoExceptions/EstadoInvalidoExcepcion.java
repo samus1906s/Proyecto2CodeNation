@@ -8,8 +8,8 @@ package Excepciones.VehiculoExceptions;
  *
  * @author Valdelomaar
  */
-public class TransicionEstadoNoPermitidoException extends Exception {
-    public TransicionEstadoNoPermitidoException(String message) {
-        super(message);
+public class EstadoInvalidoExcepcion extends Exception {
+    public EstadoInvalidoExcepcion() {
+        super();
     }
 }

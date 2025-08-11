@@ -8,8 +8,8 @@ package Excepciones.VehiculoExceptions;
  *
  * @author Valdelomaar
  */
-public class AñoIncorrectoException extends Exception {
-    public AñoIncorrectoException(String message) {
-        super(message);
+public class AñoIncorrectoExcepcion extends Exception {
+    public AñoIncorrectoExcepcion() {
+        super();
     }
 }
