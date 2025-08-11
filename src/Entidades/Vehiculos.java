@@ -4,7 +4,7 @@
  */
 package Entidades;
 
-//SE USA SERIALIZABLE PARA GUARDAR LOS DATOS REALIZADOS EN EL PROGRAMA, Y SIMULAR UNA APLICACION WEB
+
 import Excepciones.VehiculoExcepciones.AñoIncorrectoExcepcion;
 import Excepciones.VehiculoExcepciones.TransicionEstadoNoPermitidoExcepcion;
 import Excepciones.VehiculoExcepciones.EstadoInvalidoExcepcion;
@@ -21,9 +21,9 @@ import java.util.regex.Pattern;
  * @author Brandon Valdelomar
  */
 public class Vehiculos implements Serializable {
-    //La siguiente regla es solo para esta identidad porque la clase implementa serializable, esto hace que java al cargar el programa verifique si sigue siendo compatible y no ha cambiado.
+    
     private static final long serialVersionUID = 1L;
-    //Esto crea un patrón de expresión regular para validar la placa.
+
     private static final Pattern PLACA_REGEX = Pattern.compile("^[A-Z0-9-]{5,10}$");
 
     
