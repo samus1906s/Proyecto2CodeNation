@@ -6,11 +6,11 @@ package Validaciones;
 import Entidades.EstadoVehiculos;
 import Entidades.TipoVehiculo;
 import Entidades.Vehiculos;
-import Excepciones.VehiculoExceptions.AñoIncorrectoExcepcion;
-import Excepciones.VehiculoExceptions.TransicionEstadoNoPermitidoExcepcion;
-import Excepciones.VehiculoExceptions.EstadoInvalidoExcepcion;
-import Excepciones.VehiculoExceptions.CampoVacioExcepcion;
-import Excepciones.VehiculoExceptions.PlacaInvalidaExcepcion;
+import Excepciones.VehiculoExcepciones.AñoIncorrectoExcepcion;
+import Excepciones.VehiculoExcepciones.TransicionEstadoNoPermitidoExcepcion;
+import Excepciones.VehiculoExcepciones.EstadoInvalidoExcepcion;
+import Excepciones.VehiculoExcepciones.CampoVacioExcepcion;
+import Excepciones.VehiculoExcepciones.PlacaInvalidaExcepcion;
 
 
 import java.time.Year;

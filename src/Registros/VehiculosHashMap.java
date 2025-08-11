@@ -7,9 +7,9 @@ import Validaciones.ValidarVehiculos;
 import Entidades.Vehiculos;
 import Entidades.EstadoVehiculos;
 import Entidades.TipoVehiculo;
-import Excepciones.VehiculoExceptions.EstadoInvalidoExcepcion;
-import Excepciones.VehiculoExceptions.TransicionEstadoNoPermitidoExcepcion;
-import Excepciones.VehiculoExceptions.CampoVacioExcepcion;
+import Excepciones.VehiculoExcepciones.EstadoInvalidoExcepcion;
+import Excepciones.VehiculoExcepciones.TransicionEstadoNoPermitidoExcepcion;
+import Excepciones.VehiculoExcepciones.CampoVacioExcepcion;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +21,7 @@ import java.util.Map;
  * @author Brandon Valdelomar
  */
 public class VehiculosHashMap {
-     // Repositorio en memoria
+    
     private final Map<String, Vehiculos> data = new HashMap<>();
 
    

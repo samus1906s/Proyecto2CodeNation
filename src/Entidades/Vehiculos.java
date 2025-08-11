@@ -5,11 +5,11 @@
 package Entidades;
 
 //SE USA SERIALIZABLE PARA GUARDAR LOS DATOS REALIZADOS EN EL PROGRAMA, Y SIMULAR UNA APLICACION WEB
-import Excepciones.VehiculoExceptions.AñoIncorrectoExcepcion;
-import Excepciones.VehiculoExceptions.TransicionEstadoNoPermitidoExcepcion;
-import Excepciones.VehiculoExceptions.EstadoInvalidoExcepcion;
-import Excepciones.VehiculoExceptions.CampoVacioExcepcion;
-import Excepciones.VehiculoExceptions.PlacaInvalidaExcepcion;
+import Excepciones.VehiculoExcepciones.AñoIncorrectoExcepcion;
+import Excepciones.VehiculoExcepciones.TransicionEstadoNoPermitidoExcepcion;
+import Excepciones.VehiculoExcepciones.EstadoInvalidoExcepcion;
+import Excepciones.VehiculoExcepciones.CampoVacioExcepcion;
+import Excepciones.VehiculoExcepciones.PlacaInvalidaExcepcion;
 
 import java.io.Serializable;
 import java.time.Year;
@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author je110
+ * @author Brandon Valdelomar
  */
 public class Vehiculos implements Serializable {
     //La siguiente regla es solo para esta identidad porque la clase implementa serializable, esto hace que java al cargar el programa verifique si sigue siendo compatible y no ha cambiado.
