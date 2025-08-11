@@ -6,8 +6,15 @@ package Interfaces;
 
 /**
  *
- * @author je110
+ * @author Eduard Salas Murillo
  */
-public interface ListaReserva {
+public interface ListaReserva <R> {
+   public boolean modificar(R r);
+    
+    public boolean cancelar(R r);
+    
+    public R buscar(Object id);
+    
+    public void confirmar();
     
 }
