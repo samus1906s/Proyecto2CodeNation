@@ -6,16 +6,16 @@ package Entidades;
 
 /**
  *
- * @author je110
+ * @author Valdelomaar
  */
-public enum EstadoVehiculos {
-     DISPONIBLE("Disponible"),
-    EN_ALQUILER("En alquiler"),
-    EN_MANTENIMIENTO("En mantenimiento");
+public enum TipoVehiculo {
+    SEDAN("Sedán"),
+    SUV("SUV"),
+    PICK_UP("Pick-up");
 
     private final String etiqueta;
 
-    EstadoVehiculos(String etiqueta) {
+    TipoVehiculo(String etiqueta) {
         this.etiqueta = etiqueta;
     }
 
