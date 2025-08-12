@@ -4,10 +4,16 @@
  */
 package Validaciones;
 
+
+
 /**
  *
- * @author je110
+ * @author samue
  */
 public class ValidarClientes {
     
+    public static boolean validarLicencia(String licencia){
+        return licencia != null;
+    }
+
 }

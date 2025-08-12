@@ -4,10 +4,30 @@
  */
 package Entidades;
 
+import java.time.LocalDate;
+import Validaciones.ValidarClientes;
+
 /**
  *
- * @author je110
+ * @author samue
  */
-public class Clientes {
+public class Clientes extends Persona {
+    
+    private String licenciaconducir;
+
+    public String getLicenciacondudicir() {
+        return licenciaconducir;
+    }
+    
+    public boolean validarLicencia(){
+        return ValidarClientes.validarLicencia(licenciaconducir);
+    }
+
+    public Clientes(String cedula, String nombre, LocalDate fechaNacimiento, String licenciaconducir) {
+        super(cedula, nombre, fechaNacimiento);
+        if(ValidarClientes.validarLicencia(licenciaconducir));
+        this.licenciaconducir = licenciaconducir;
+    }
+    
     
 }
