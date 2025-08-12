@@ -4,18 +4,19 @@
  */
 package Interfaces;
 
+import Entidades.ContratoAlquiler;
+import Entidades.EstadoContrato;
+
 /**
  *
  * @author je110
  */
-public interface ListaContrato <T> {
+public interface ListaContrato {
     
-    public boolean crear(T t);
-    
-    public boolean finalizar(T t);
-    
-    public T Buscar(Object id);
-    
-    public void cancelar();
-    
+ContratoAlquiler crearContratoConReserva(double tarifaDiaria);
+ContratoAlquiler crearContratoSinReserva();
+
+public void finalizarContrato(int contratoID);
+public void cancelarContrato(int contratoID);
+
 }

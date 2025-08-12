@@ -11,7 +11,7 @@ import java.time.LocalDate;
  * @author je110
  */
 public class ContratoAlquiler {
-    
+    private int contratoID;
     private EstadoContrato estadocontrato;
     private LocalDate fechaInicial, fechaFinal;
     private double tarifaDiaria;
@@ -22,11 +22,11 @@ public class ContratoAlquiler {
         return estadocontrato;
     }
 
-    public LocalDate getFechaI() {
+    public LocalDate getFechaInicial() {
         return fechaInicial;
     }
 
-    public LocalDate getFechaF() {
+    public LocalDate getFechaFinal() {
         return fechaFinal;
     }
 
@@ -42,15 +42,23 @@ public class ContratoAlquiler {
         return dias;
     }
 
+    public int getContratoID() {
+        return contratoID;
+    }
+
+    public EstadoContrato getEstadocontrato() {
+        return estadocontrato;
+    }
+
     public void setEstadocontrato(EstadoContrato estadocontrato) {
         this.estadocontrato = estadocontrato;
     }
 
-    public void setFechaI(LocalDate fechaInicial) {
+    public void setFechaInicial(LocalDate fechaInicial) {
         this.fechaInicial = fechaInicial;
     }
 
-    public void setFechaF(LocalDate fechaFinal) {
+    public void setFechaFinal(LocalDate fechaFinal) {
         this.fechaFinal = fechaFinal;
     }
 
