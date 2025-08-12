@@ -23,8 +23,5 @@ public enum TipoVehiculo {
         return etiqueta;
     }
 
-    @Override
-    public String toString() {
-        return etiqueta;
-    }
+    
 }

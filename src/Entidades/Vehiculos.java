@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author Brandon Valdelomar
+ * @author Valdelomar
  */
 public class Vehiculos implements Serializable {
     

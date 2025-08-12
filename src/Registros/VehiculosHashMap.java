@@ -18,7 +18,7 @@ import java.util.Map;
 
 /**
  *
- * @author Brandon Valdelomar
+ * @author Valdelomar
  */
 public class VehiculosHashMap {
     

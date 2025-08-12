@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 /**
  *
- * @author Brandon Valdelomar
+ * @author Valdelomar
  */
 public class ValidarVehiculos {
     private static final Pattern PLACA_REGEX = Pattern.compile("^[A-Z0-9-]{5,10}$");

@@ -6,7 +6,7 @@ package Entidades;
 
 /**
  *
- * @author je110
+ * @author Valdelomar
  */
 public enum EstadoVehiculos {
      DISPONIBLE("Disponible"),
@@ -23,8 +23,5 @@ public enum EstadoVehiculos {
         return etiqueta;
     }
 
-    @Override
-    public String toString() {
-        return etiqueta;
-    }
+  
 }
