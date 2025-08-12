@@ -50,7 +50,7 @@ public abstract class Persona {
         this.correo = correo;
     }
 
-    public Persona(String cedula, String nombre, LocalDate fechaNacimiento) {
+    public Persona(String cedula, String nombre, LocalDate fechaNacimiento, String telefono, String correo) {
         this.cedula = cedula;
         this.nombre = nombre;
         if(ValidarPersona.FechaNoFutura(fechaNacimiento))
