@@ -8,6 +8,14 @@ package Interfaces;
  *
  * @author je110
  */
-public interface ListaGeneral {
+public interface ListaGeneral <T, ID> {
+    
+    public boolean agregar(T t);
+    
+    public boolean eliminar(ID id);
+    
+    public T buscar(ID id);
+    
+    public void actualizar(ID id, T t);
     
 }

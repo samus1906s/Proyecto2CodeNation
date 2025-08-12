@@ -4,19 +4,41 @@
  */
 package Interfaces;
 
+import Entidades.Clientes;
 import Entidades.ContratoAlquiler;
-import Entidades.EstadoContrato;
+import Entidades.Reserva;
+import Entidades.Vehiculos;
+import Excepciones.ContratoExcepciones.ClienteNoRegistradoExcepcion;
+import Excepciones.ContratoExcepciones.ContratoFinalizadoExcepcion;
+import Excepciones.ContratoExcepciones.ContratoNoEncontradoExcepcion;
+import Excepciones.ContratoExcepciones.FechaInvalidaExcepcion;
+import Excepciones.ContratoExcepciones.VehiculoNoDisponibleExcepcion;
+import Excepciones.ContratoExcepciones.VehiculoNoRegistradoExcepcion;
+import java.time.LocalDate;
+import java.util.List;
 
-/**
- *
- * @author je110
- */
 public interface ListaContrato {
+
+    ContratoAlquiler crearContratoConReserva(Reserva reserva, double tarifaDiaria) 
+        throws ClienteNoRegistradoExcepcion, VehiculoNoDisponibleExcepcion, VehiculoNoRegistradoExcepcion, FechaInvalidaExcepcion;
     
-ContratoAlquiler crearContratoConReserva(double tarifaDiaria);
-ContratoAlquiler crearContratoSinReserva();
+    ContratoAlquiler crearContratoSinReserva(Clientes cliente, Vehiculos vehiculo, 
+        LocalDate fechaInicial, LocalDate fechaFinal, double tarifaDiaria) 
+        throws ClienteNoRegistradoExcepcion, VehiculoNoDisponibleExcepcion, VehiculoNoRegistradoExcepcion, FechaInvalidaExcepcion;
 
-public void finalizarContrato(int contratoID);
-public void cancelarContrato(int contratoID);
-
+    public void finalizarContrato(int contratoID) throws ContratoNoEncontradoExcepcion, ContratoFinalizadoExcepcion;
+    
+    public void cancelarContrato(int contratoID) throws ContratoFinalizadoExcepcion;
+    
+    ContratoAlquiler BuscarIdContrato(int ContratoID);
+    
+    List<ContratoAlquiler> BuscarCliente(String cedulaCliente);
+    
+    List<ContratoAlquiler> BuscarVehiculo(String placaVehiculo);
+    
+    List<ContratoAlquiler> BuscarContratoActivo();
+    
+    List<ContratoAlquiler> BuscarContratoVencido();
+    
+    public boolean existeContratoActivo(String placa, LocalDate fechaInicio, LocalDate fechaFinal);
 }
