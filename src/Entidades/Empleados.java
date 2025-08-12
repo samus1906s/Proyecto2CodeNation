@@ -31,10 +31,9 @@ public class Empleados extends Persona{
         if(ValidarEmpleados.validarSalario(salario))
            this.salario = salario;
     }
-    
 
-    public Empleados( String cedula, String nombre, LocalDate fechaNacimiento) {
-        super(cedula, nombre, fechaNacimiento);
+    public Empleados(PuestoEmpleado puesto, double salario, String cedula, String nombre, LocalDate fechaNacimiento, String telefono, String correo) {
+        super(cedula, nombre, fechaNacimiento, telefono, correo);
         if(ValidarEmpleados.validarPuesto(puesto.getFuncion())){
             this.puesto = puesto;
         }else{
@@ -45,6 +44,9 @@ public class Empleados extends Persona{
         }else
           this.salario = 0;
     }
+    
+
+    
     
     
     

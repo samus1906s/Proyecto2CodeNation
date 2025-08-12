@@ -23,11 +23,13 @@ public class Clientes extends Persona {
         return ValidarClientes.validarLicencia(licenciaconducir);
     }
 
-    public Clientes(String cedula, String nombre, LocalDate fechaNacimiento, String licenciaconducir) {
-        super(cedula, nombre, fechaNacimiento);
-        if(ValidarClientes.validarLicencia(licenciaconducir));
+    public Clientes(String licenciaconducir, String cedula, String nombre, LocalDate fechaNacimiento, String telefono, String correo) {
+        super(cedula, nombre, fechaNacimiento, telefono, correo);
+       if(ValidarClientes.validarLicencia(licenciaconducir));
         this.licenciaconducir = licenciaconducir;
     }
+
+    
     
     
 }
