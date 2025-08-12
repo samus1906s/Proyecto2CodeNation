@@ -4,7 +4,10 @@
  */
 package Entidades;
 
+import Excepciones.VehiculoExcepciones.EstadoInvalidoExcepcion;
+import Excepciones.VehiculoExcepciones.TransicionEstadoNoPermitidoExcepcion;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 /**
  *
@@ -12,15 +15,14 @@ import java.time.LocalDate;
  */
 public class ContratoAlquiler {
     private int contratoID;
+    private Clientes cliente;
+    private Vehiculos vehiculo;
+    private Reserva reserva;
     private EstadoContrato estadocontrato;
     private LocalDate fechaInicial, fechaFinal;
     private double tarifaDiaria;
     private double montoTotal;
     private int dias;
-
-    public EstadoContrato getContrato() {
-        return estadocontrato;
-    }
 
     public LocalDate getFechaInicial() {
         return fechaInicial;
@@ -46,11 +48,23 @@ public class ContratoAlquiler {
         return contratoID;
     }
 
-    public EstadoContrato getEstadocontrato() {
+    public EstadoContrato getEstadoContrato() {
         return estadocontrato;
     }
 
-    public void setEstadocontrato(EstadoContrato estadocontrato) {
+    public Clientes getCliente() {
+        return cliente;
+    }
+
+    public Vehiculos getVehiculo() {
+        return vehiculo;
+    }
+
+    public Reserva getReserva() {
+        return reserva;
+    }
+
+    public void setEstadoContrato(EstadoContrato estadocontrato) {
         this.estadocontrato = estadocontrato;
     }
 
@@ -66,17 +80,27 @@ public class ContratoAlquiler {
         this.tarifaDiaria = tarifaDiaria;
     }
 
-    public ContratoAlquiler(LocalDate fechaInicial, LocalDate fechaFinal, double tarifaDiaria, double montoTotal, int dias) {
+    public ContratoAlquiler(int contratoID, Clientes cliente, Vehiculos vehiculo, Reserva reserva, LocalDate fechaInicial, LocalDate fechaFinal, double tarifaDiaria) {
+        this.contratoID = contratoID;
+        this.cliente = cliente;
+        this.vehiculo = vehiculo;
+        this.reserva = reserva;
+        this.estadocontrato = EstadoContrato.ACTIVO;
         this.fechaInicial = fechaInicial;
         this.fechaFinal = fechaFinal;
         this.tarifaDiaria = tarifaDiaria;
-        this.montoTotal = montoTotal;
-        this.dias = dias;
-        this.estadocontrato = estadocontrato.ACTIVO;
+        this.montoTotal = calcularMontoTotal(tarifaDiaria, dias);
+        this.dias = (int) ChronoUnit.DAYS.between(fechaInicial, fechaFinal);
     }
     
-    private double CalcularMontoTotal(double tarifaDiaria, int dias){
+    private double calcularMontoTotal(double tarifaDiaria, int dias){
         return montoTotal = tarifaDiaria * dias;
+    }
+    
+    private void inicializarContrato() throws TransicionEstadoNoPermitidoExcepcion, EstadoInvalidoExcepcion{
+       if (estadocontrato == EstadoContrato.ACTIVO){
+           this.vehiculo.setEstado(EstadoVehiculos.EN_ALQUILER);
+       }
     }
     
 }

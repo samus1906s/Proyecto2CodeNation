@@ -28,17 +28,18 @@ public interface ListaContrato {
 
     public void finalizarContrato(int contratoID) throws ContratoNoEncontradoExcepcion, ContratoFinalizadoExcepcion;
     
-    public void cancelarContrato(int contratoID) throws ContratoFinalizadoExcepcion;
+    public void cancelarContrato(int contratoID) throws ContratoFinalizadoExcepcion, ContratoNoEncontradoExcepcion;
     
-    ContratoAlquiler BuscarIdContrato(int ContratoID);
+    ContratoAlquiler buscarContratoPorId(int ContratoID);
     
-    List<ContratoAlquiler> BuscarCliente(String cedulaCliente);
+    List<ContratoAlquiler> buscarPorCliente(String cedulaCliente);
     
-    List<ContratoAlquiler> BuscarVehiculo(String placaVehiculo);
+    List<ContratoAlquiler> buscarPorVehiculo(String placaVehiculo);
     
-    List<ContratoAlquiler> BuscarContratoActivo();
+    List<ContratoAlquiler> buscarPorContratoActivo();
     
-    List<ContratoAlquiler> BuscarContratoVencido();
+    List<ContratoAlquiler> buscarPorContratoVencido();
     
     public boolean existeContratoActivo(String placa, LocalDate fechaInicio, LocalDate fechaFinal);
+    
 }
