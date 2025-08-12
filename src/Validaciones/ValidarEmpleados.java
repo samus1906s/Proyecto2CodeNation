@@ -7,7 +7,7 @@ import Entidades.PuestoEmpleado;
 
 /**
  *
- * @author je110
+ * @author samue
  */
 public class ValidarEmpleados {
     private static final double salarioMinimo = 300000;

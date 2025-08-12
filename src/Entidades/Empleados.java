@@ -9,7 +9,7 @@ import Validaciones.ValidarEmpleados;
 
 /**
  *
- * @author je110
+ * @author samue
  */
 public class Empleados extends Persona{
     private PuestoEmpleado puesto;
