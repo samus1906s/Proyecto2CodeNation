@@ -10,6 +10,7 @@ import Entidades.TipoVehiculo;
 import Excepciones.VehiculoExcepciones.EstadoInvalidoExcepcion;
 import Excepciones.VehiculoExcepciones.TransicionEstadoNoPermitidoExcepcion;
 import Excepciones.VehiculoExcepciones.CampoVacioExcepcion;
+import Interfaces.ListaGeneral;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,22 +21,50 @@ import java.util.Map;
  *
  * @author Valdelomar
  */
-public class VehiculosHashMap {
+public class VehiculosHashMap implements ListaGeneral<Vehiculos, String> {
     
     private final Map<String, Vehiculos> data = new HashMap<>();
 
-   
+    @Override
     public boolean agregar(Vehiculos v) {
         if (v == null) return false;
         if (!ValidarVehiculos.puedeAgregar(v, data)) return false;
-        data.put(key(v.getPlaca()), v);
+        String k = norm(v.getPlaca());
+        if (data.containsKey(k)) return false;
+        data.put(k, v);
         return true;
     }
 
-   
+    @Override
+    public boolean eliminar(String id) {
+        String k = norm(id);
+        if (k == null) return false;
+        Vehiculos v = data.get(k);
+        if (v == null) return false;
+        if (!ValidarVehiculos.puedeEliminar(v)) return false;
+        data.remove(k);
+        return true;
+    }
+
+    @Override
+    public Vehiculos buscar(String id) {
+        String k = norm(id);
+        if (k == null) return null;
+        return data.get(k);
+    }
+
+    @Override
+    public void actualizar(String id, Vehiculos t) {
+        String k = norm(id);
+        if (k == null || t == null) return;
+        if (!data.containsKey(k)) return;
+        data.put(k, t);
+    }
+
     public Vehiculos buscarPorPlaca(String placa) {
-        if (placa == null) return null;
-        return data.get(key(placa));
+        String k = norm(placa);
+        if (k == null) return null;
+        return data.get(k);
     }
 
     public List<Vehiculos> buscarPorTipo(TipoVehiculo tipo) {
@@ -54,8 +83,7 @@ public class VehiculosHashMap {
     public int total() {
         return data.size();
     }
-
-  
+    
     public boolean actualizarModelo(String placa, String nuevoModelo) throws CampoVacioExcepcion {
         Vehiculos v = buscarPorPlaca(placa);
         if (v == null) return false;
@@ -72,25 +100,16 @@ public class VehiculosHashMap {
         return true;
     }
 
-    public boolean actualizarEstado(String placa, EstadoVehiculos nuevoEstado) throws TransicionEstadoNoPermitidoExcepcion, EstadoInvalidoExcepcion {
+    public boolean actualizarEstado(String placa, EstadoVehiculos nuevoEstado)
+            throws TransicionEstadoNoPermitidoExcepcion, EstadoInvalidoExcepcion {
         Vehiculos v = buscarPorPlaca(placa);
         if (v == null) return false;
         if (!ValidarVehiculos.puedeActualizarEstado(v.getEstado(), nuevoEstado)) return false;
-        v.setEstado(nuevoEstado); 
+        v.setEstado(nuevoEstado);
         return true;
     }
 
-    
-    public boolean eliminar(String placa) {
-        Vehiculos v = buscarPorPlaca(placa);
-        if (v == null) return false;
-        if (!ValidarVehiculos.puedeEliminar(v)) return false;
-        data.remove(key(placa));
-        return true;
-    }
-
-    
-    private static String key(String placa) {
+    private static String norm(String placa) {
         return (placa == null) ? null : placa.trim().toUpperCase();
     }
 }
