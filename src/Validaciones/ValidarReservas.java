@@ -6,10 +6,10 @@ package Validaciones;
 
 import Entidades.Reserva;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.Map;
 import Entidades.Clientes;
 import Entidades.Vehiculos;
+import java.time.temporal.ChronoUnit;
 
 
 
@@ -19,7 +19,10 @@ import Entidades.Vehiculos;
  */
 public abstract class ValidarReservas {
     public static boolean DuracionValida(LocalDate fechaInicio, LocalDate fechaFin) {
-        long dias = ChronoUnit.DAYS.between(fechaInicio, fechaFin);
+        if(fechaFin.isBefore(fechaInicio)){
+            return false;
+        }
+        long dias = ChronoUnit.DAYS.between(fechaInicio, fechaFin)+1;
         return dias <= 30;
     }
 
