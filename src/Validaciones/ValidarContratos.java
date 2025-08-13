@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class ValidarContratos {
     
-    public static boolean existeAlquilerActivoSolapado(List<ContratoAlquiler> contratosActivos, Vehiculos vehiculo, LocalDate fechaInicioNueva, LocalDate fechaFinNueva) {
+    public static boolean existeAlquilerActivoDias(List<ContratoAlquiler> contratosActivos, Vehiculos vehiculo, LocalDate fechaInicioNueva, LocalDate fechaFinNueva) {
     for (ContratoAlquiler contrato : contratosActivos) {
         if (contrato.getVehiculo().getPlaca().equalsIgnoreCase(vehiculo.getPlaca()) && contrato.getEstadoContrato() == EstadoContrato.ACTIVO){
 
