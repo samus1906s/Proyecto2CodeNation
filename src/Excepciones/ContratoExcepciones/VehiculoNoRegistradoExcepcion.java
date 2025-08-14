@@ -10,8 +10,8 @@ package Excepciones.ContratoExcepciones;
  */
 public class VehiculoNoRegistradoExcepcion extends Exception {
     
-    public VehiculoNoRegistradoExcepcion(String mensaje) {
-        super(mensaje);
+    public VehiculoNoRegistradoExcepcion() {
+        super();
     }
     
 }

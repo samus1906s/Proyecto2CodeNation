@@ -30,11 +30,11 @@ public interface ListaContrato {
     
     public void cancelarContrato(int contratoID) throws ContratoFinalizadoExcepcion, ContratoNoEncontradoExcepcion;
     
-    ContratoAlquiler buscarContratoPorId(int ContratoID);
+    ContratoAlquiler buscarContratoPorId(int ContratoID) throws ContratoNoEncontradoExcepcion;
     
-    List<ContratoAlquiler> buscarPorCliente(String cedulaCliente);
+    List<ContratoAlquiler> buscarPorCliente(String cedulaCliente) throws ClienteNoRegistradoExcepcion;
     
-    List<ContratoAlquiler> buscarPorVehiculo(String placaVehiculo);
+    List<ContratoAlquiler> buscarPorVehiculo(String placaVehiculo) throws VehiculoNoDisponibleExcepcion, VehiculoNoRegistradoExcepcion;
     
     List<ContratoAlquiler> buscarPorContratoActivo();
     

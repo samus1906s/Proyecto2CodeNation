@@ -10,7 +10,7 @@ package Excepciones.ContratoExcepciones;
  */
 public class FechaInvalidaExcepcion extends Exception {
     
-    public FechaInvalidaExcepcion(String mensaje) {
-        super(mensaje);
+    public FechaInvalidaExcepcion() {
+        super();
     }
 }

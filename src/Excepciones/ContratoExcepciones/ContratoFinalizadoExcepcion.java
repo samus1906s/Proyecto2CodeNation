@@ -10,8 +10,8 @@ package Excepciones.ContratoExcepciones;
  */
 public class ContratoFinalizadoExcepcion extends Exception {
     
-    public ContratoFinalizadoExcepcion(String mensaje) {
-        super(mensaje);
+    public ContratoFinalizadoExcepcion() {
+        super();
     }
     
 }

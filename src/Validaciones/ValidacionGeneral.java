@@ -31,4 +31,8 @@ public class ValidacionGeneral {
         return fechaFin.isAfter(fechaInicio);
     }
     
+    public static boolean FechasDeRangoValidas(LocalDate fechaInicio1, LocalDate fechaFin1, LocalDate fechaInicio2, LocalDate fechaFin2) {
+        return !fechaFin1.isBefore(fechaInicio2) && !fechaInicio1.isAfter(fechaFin2);
+    }
+    
 }

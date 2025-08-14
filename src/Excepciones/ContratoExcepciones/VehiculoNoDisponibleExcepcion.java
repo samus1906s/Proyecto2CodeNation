@@ -10,8 +10,8 @@ package Excepciones.ContratoExcepciones;
  */
 public class VehiculoNoDisponibleExcepcion extends Exception {
     
-    public VehiculoNoDisponibleExcepcion(String mensaje) {
-        super(mensaje);
+    public VehiculoNoDisponibleExcepcion() {
+        super();
     }
     
 }
