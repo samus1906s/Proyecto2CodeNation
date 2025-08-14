@@ -6,8 +6,8 @@ package Registros;
 
 /**
  *
- * @author je110
+ * @author Eduard Salas Murillo
  */
-public class ReservasQueue {
+public class GestionReservas {
     
 }
